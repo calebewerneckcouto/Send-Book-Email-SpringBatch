@@ -3,8 +3,9 @@ package com.devsuperior.send_book_email_sb.domain;
 public class User {
 	
 	private int id;
-	private String email;
 	private String name;
+	private String email;
+	
 	
 	public User() {
 		

@@ -35,13 +35,16 @@ public class UserBookLoan {
 		this.book = book;
 	}
 
-	public Date getLoan_date() {
-		return loan_date;
-	}
+	
 
 	public void setLoan_date(Date loan_date) {
 		this.loan_date = loan_date;
 	}
+	
+	
+	public java.sql.Date getLoan_date() {
+        return loan_date;
+    }
 	
 	
 
