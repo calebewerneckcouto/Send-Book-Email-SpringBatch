@@ -46,7 +46,8 @@ public class ReadUsersWithLoanCloserToReturnReaderConfig {
         return new RowMapper<UserBookLoan>() {
             @Override
             public UserBookLoan mapRow(ResultSet rs, int rowNum) throws SQLException {
-                User user = new User(rs.getInt("user_id"), rs.getString("user_name"), rs.getString("user_email"));
+                // Atribuindo o e-mail ao campo email e o nome ao campo name corretamente
+                User user = new User(rs.getInt("user_id"), rs.getString("user_email"), rs.getString("user_name"));
                 Book book = new Book();
                 book.setId(rs.getInt("book_id"));
                 book.setName(rs.getString("book_name"));
@@ -54,19 +55,21 @@ public class ReadUsersWithLoanCloserToReturnReaderConfig {
                 Date loanDate = rs.getDate("loan_date");
 
                 UserBookLoan userBookLoan = new UserBookLoan(user, book, loanDate);
-                
+
                 System.out.println(formatUserBookLoan(userBookLoan));
-                
+
                 return userBookLoan;
             }
         };
     }
 
+
     private String formatUserBookLoan(UserBookLoan userBookLoan) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         StringBuilder sb = new StringBuilder();
         
-        sb.append(String.format("Usuário ID: %d, Nome: %s (%s)\n", 
+        // Corrigir a formatação para separar o nome e o e-mail
+        sb.append(String.format("Usuário ID: %d, Nome: %s, E-mail: %s\n", 
                                userBookLoan.getUser().getId(), 
                                userBookLoan.getUser().getName(), 
                                userBookLoan.getUser().getEmail()));
@@ -77,7 +80,6 @@ public class ReadUsersWithLoanCloserToReturnReaderConfig {
         
         sb.append(String.format("Data do Empréstimo: %s", 
                 formatter.format(userBookLoan.getLoan_date())));
-        
         
         return sb.toString();
     }

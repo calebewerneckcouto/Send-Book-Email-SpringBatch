@@ -19,11 +19,14 @@ public class ProcessLoanNotificationEmailProcessorConfig {
 			
 			@Override
 			public Mail process(UserBookLoan loan) throws Exception {
-				Email from =  new Email("calebewerneck@gmail.com","Biblioteca Municipal");
+				Email from =  new Email("calebewerneck@gmail.com", "Biblioteca Municipal");
 				Email to = new  Email(loan.getUser().getEmail());
 				Content content = new Content("text/plain",generateEmailText(loan));
 				Mail mail = new Mail(from, "Notificação devolução livro", to, content);
 				Thread.sleep(1000);
+				
+				System.out.println("Enviando e-mail para: " + loan.getUser().getEmail());
+
 				return mail;
 			}
 			
