@@ -7,31 +7,51 @@ import java.util.Date;
 
 public final class GenerateBookReturnDate {
 
-	public static int numDaysToReturnBook = 7;
+    // Número de dias padrão para o retorno do livro
+    public static int numDaysToReturnBook = 7;
 
-	private static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    // Formato da data para exibição (dia/mês/ano)
+    private static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-	// Gets the formated return date of the book
+    /**
+     * Obtém a data de devolução do livro formatada.
+     * Adiciona `numDaysToReturnBook` dias à data do empréstimo fornecida.
+     *
+     * @param loan_date Data do empréstimo do livro.
+     * @return Data de devolução formatada como String.
+     */
+    public static String getDate(Date loan_date) {
+        // Converte a data de empréstimo para um objeto Calendar
+        Calendar calendar = dateToCalendar(loan_date);
 
-	public static String getDate(Date loan_date) {
+        // Adiciona o número de dias para devolução ao Calendar
+        calendar.add(Calendar.DATE, numDaysToReturnBook);
 
-		Calendar calendar = dateToCalendar(loan_date);
-		calendar.add(Calendar.DATE, numDaysToReturnBook);
-		String result = dateFormat.format(calendarToDate(calendar));
-		return result;
+        // Converte de volta para Date e formata como String
+        String result = dateFormat.format(calendarToDate(calendar));
 
-	}
-  //Convert Calendar to Date
-	private static Date calendarToDate(Calendar calendar) {
+        return result;
+    }
 
-		return calendar.getTime();
-	}
+    /**
+     * Converte um objeto Calendar em um objeto Date.
+     *
+     * @param calendar Objeto Calendar a ser convertido.
+     * @return Objeto Date correspondente.
+     */
+    private static Date calendarToDate(Calendar calendar) {
+        return calendar.getTime(); // Obtém a representação Date do Calendar
+    }
 
-	// Converts Date to Calendar
-	private static Calendar dateToCalendar(Date loan_date) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(loan_date);
-		return calendar;
-	}
-
+    /**
+     * Converte um objeto Date em um objeto Calendar.
+     *
+     * @param loan_date Objeto Date a ser convertido.
+     * @return Objeto Calendar correspondente.
+     */
+    private static Calendar dateToCalendar(Date loan_date) {
+        Calendar calendar = Calendar.getInstance(); // Cria uma instância de Calendar
+        calendar.setTime(loan_date); // Define a data do Calendar com a data fornecida
+        return calendar;
+    }
 }
